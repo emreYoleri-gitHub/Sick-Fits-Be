@@ -1,27 +1,28 @@
-import { relationship, text } from "@keystone-next/fields";
-import { list } from "@keystone-next/keystone/schema";
-import { permission } from "../access";
-import { permissionFields } from "./fields";
+import { relationship, text } from '@keystone-next/fields';
+import { list } from '@keystone-next/keystone/schema';
+import { permissions } from '../access';
+import { permissionFields } from './fields';
+
 export const Role = list({
   access: {
-    create: permission.canManageRoles,
-    read: permission.canManageRoles,
-    update: permission.canManageRoles,
-    delete: permission.canManageRoles,
+    create: permissions.canManageRoles,
+    read: permissions.canManageRoles,
+    update: permissions.canManageRoles,
+    delete: permissions.canManageRoles,
   },
   ui: {
-    hideCreate: (args) => !permission.canManageRoles(args),
-    hideDelete: (args) => !permission.canManageRoles(args),
-    isHidden: (args) => !permission.canManageRoles(args),
+    hideCreate: (args) => !permissions.canManageRoles(args),
+    hideDelete: (args) => !permissions.canManageRoles(args),
+    isHidden: (args) => !permissions.canManageRoles(args),
   },
   fields: {
     name: text({ isRequired: true }),
     ...permissionFields,
     assignedTo: relationship({
-      ref: "User.role",
+      ref: 'User.role', // TODO: Add this to the User
       many: true,
       ui: {
-        itemView: { fieldMode: "read" },
+        itemView: { fieldMode: 'read' },
       },
     }),
   },
