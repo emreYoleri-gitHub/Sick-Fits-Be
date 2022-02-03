@@ -1,1 +1,1 @@
-web: keystone-next
+web:npx keystone-next
